@@ -1,5 +1,5 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
-import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 const $=id=>document.getElementById(id),scene=new THREE.Scene();scene.background=new THREE.Color('#211c40');scene.fog=new THREE.FogExp2(0x211c40,.018);
 const camera=new THREE.PerspectiveCamera(43,innerWidth/innerHeight,.1,180);
 const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;$('scene').appendChild(renderer.domElement);
@@ -12,7 +12,7 @@ const sphere=(r,c,x,y,z,opts={})=>mesh(new THREE.SphereGeometry(r,18,14),c,x,y,z
 const cone=(r,h,c,x,y,z)=>mesh(new THREE.ConeGeometry(r,h,6),c,x,y,z);
 const torus=(r,t,c,x,y,z)=>mesh(new THREE.TorusGeometry(r,t,10,40),c,x,y,z,{emissive:c,emissiveIntensity:.9});
 const group=new THREE.Group();scene.add(group);
-const moon=sphere(2.6,0xfbf0da,18,18,-38,{emissive:0xdfc997,emissiveIntensity:.35});moon.castShadow=false;
+const moon=sphere(2.6,0xfbf0da,18,18,-38,{emissive:0xdfc997,emissiveIntensity:.35});moon.castShadow=false;world.remove(moon);scene.add(moon);
 for(let i=0;i<110;i++){let x=(Math.random()-.5)*100,y=3+Math.random()*38,z=-15-Math.random()*55;let s=new THREE.Mesh(new THREE.SphereGeometry(.025+Math.random()*.06,6,5),new THREE.MeshBasicMaterial({color:Math.random()>.5?0xffe9b3:0xdacafb}));s.position.set(x,y,z);scene.add(s)}
 let importedCharacter=null,characterMixer=null,characterActions={},currentCharacterAction='',characterBusy=false;let hero,body,face,ears=[],stars=[],portal,crystal,bridge,bridgeVisible=false,state='menu',level=1,found=0,last=0,tick=0,noticeTimer=0,pressed=new Set(),inputLock=false;try{level=Math.max(1,Number(localStorage.getItem('moonie-level'))||1)}catch{}$('level').textContent=level;
 const eyeMat=material(0x38304d),blush=material(0xf3a9cb),white=material(0xfff7f5,{emissive:0xc6b0ee,emissiveIntensity:.13});
