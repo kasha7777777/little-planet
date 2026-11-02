@@ -60,4 +60,4 @@ addEventListener('keyup',e=>pressed.delete(e.code));addEventListener('blur',()=>
 document.querySelectorAll('[data-k]').forEach(b=>{const k=b.dataset.k;b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);pressed.add(k)});for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,()=>pressed.delete(k))});
 $('interact').onclick=interact;$('play').onclick=()=>begin(true);$('continue').onclick=()=>begin(false);$('pause').onclick=pause;$('resume').onclick=resume;$('restart').onclick=()=>begin(false);$('next').onclick=()=>{level++;save();begin(false)};$('home').onclick=$('winHome').onclick=()=>{state='menu';pressed.clear();show('menu')};
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
-resetScene();show('menu');
+resetScene();show('menu');window.moonieBooted=true;
